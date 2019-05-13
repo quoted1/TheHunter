@@ -118,17 +118,17 @@ public class Arrow : MonoBehaviour {
         if (collidedGameObject.name == "Green")
         {
             Debug.Log("Bulls-eye - 20 points");
-            GetComponentInParent<TargetController>().CenterRingHit();
+            GetComponentInParent<TargetController>().CenterRingHit(collidedGameObject);
         }
         if (collidedGameObject.name == "Yellow")
         {
             Debug.Log("Close - 10 Points");
-            GetComponentInParent<TargetController>().MiddleRingHit();
+            GetComponentInParent<TargetController>().MiddleRingHit(collidedGameObject);
         }
         if (collidedGameObject.name == "Red")
         {
             Debug.Log("Get Good - 5 Points");
-            GetComponentInParent<TargetController>().OuterRingHit();
+            GetComponentInParent<TargetController>().OuterRingHit(collidedGameObject);
         }
     }
 

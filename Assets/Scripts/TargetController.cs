@@ -6,7 +6,7 @@ public class TargetController : MonoBehaviour {
 
     #region
 
-    public GameObject CenterRing, MiddleRing, OuterRing;
+    public GameObject[] CenterRing, MiddleRing, OuterRing;
     public int CenterScore, MiddleScore, OuterScore;
     public GameObject GameController;
     public int Score;
@@ -20,70 +20,43 @@ public class TargetController : MonoBehaviour {
         OuterScore = 5;
     }
 
-    public void CenterRingHit()
+    public void CenterRingHit(GameObject colObj)
     {
         Score = CenterScore;
         GameController.GetComponent<ScoreController>().ScoreUp(Score);
         //Debug.Log("score up 20");
-        StartCoroutine(HideCenterObject());
+        StartCoroutine(HideColObject(colObj));
     }
-    public void MiddleRingHit()
+    public void MiddleRingHit(GameObject colObj)
     {
         Score = MiddleScore;
         GameController.GetComponent<ScoreController>().ScoreUp(Score);
         //Debug.Log("score up 10");
-        StartCoroutine(HideMiddleObject());
+        StartCoroutine(HideColObject(colObj));
     }
-    public void OuterRingHit()
+    public void OuterRingHit(GameObject colObj)
     {
         Score = OuterScore;
         GameController.GetComponent<ScoreController>().ScoreUp(Score);
         //Debug.Log("score up 5");
-        StartCoroutine(HideOuterObject());
+        StartCoroutine(HideColObject(colObj));
     }
 
-    private IEnumerator HideCenterObject()
+    private IEnumerator HideColObject(GameObject colObj)
     {
         //Debug.Log("hiding hit target");
 
-        CenterRing.GetComponent<Renderer>().enabled = false;
-        CenterRing.GetComponent<Collider>().enabled = false;
+        colObj.GetComponent<Renderer>().enabled = false;
+        colObj.GetComponent<Collider>().enabled = false;
 
         yield return new WaitForSeconds(5f);
         //Debug.Log("hiding hit target");
 
-        CenterRing.GetComponent<Renderer>().enabled = true;
-        CenterRing.GetComponent<Collider>().enabled = true;
+        colObj.GetComponent<Renderer>().enabled = true;
+        colObj.GetComponent<Collider>().enabled = true;
     }
 
-    private IEnumerator HideMiddleObject()
-    {
-        //Debug.Log("hiding hit target");
-
-        MiddleRing.GetComponent<Renderer>().enabled = false;
-        MiddleRing.GetComponent<Collider>().enabled = false;
-
-        yield return new WaitForSeconds(5f);
-       // Debug.Log("hiding hit target");
-
-        MiddleRing.GetComponent<Renderer>().enabled = true;
-        MiddleRing.GetComponent<Collider>().enabled = true;
-    }
-
-    private IEnumerator HideOuterObject()
-    {
-        //Debug.Log("hiding hit target");
-
-        OuterRing.GetComponent<Renderer>().enabled = false;
-        OuterRing.GetComponent<Collider>().enabled = false;
-
-        yield return new WaitForSeconds(5f);
-
-        //Debug.Log("hiding hit target");
-
-        OuterRing.GetComponent<Renderer>().enabled = true;
-        OuterRing.GetComponent<Collider>().enabled = true;
-    }
+    
 
 
 

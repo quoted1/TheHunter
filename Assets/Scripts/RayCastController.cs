@@ -62,6 +62,7 @@ public class RayCastController : MonoBehaviour
             pointDot.transform.position = hit.point; //sets the position of the point orb
         }
 
+        /*
         //the following code for showing the waypoints will be deleted eventually 
         foreach (GameObject MT in movementTargets) // this code is no longer needed due to not needing to hide the waypoints
         {
@@ -75,7 +76,7 @@ public class RayCastController : MonoBehaviour
                 MT.SetActive(false);
             }
         }
-
+        */
        
 
         /*
@@ -110,9 +111,14 @@ public class RayCastController : MonoBehaviour
                 MT.GetComponent<CurrentMT>().currentMT = false;
             }
             hit.transform.gameObject.GetComponent<CurrentMT>().currentMT = true;
-            hit.transform.gameObject.SetActive(false);
+            //hit.transform.gameObject.SetActive(false);
         }
 
-        pointDot.SetActive(false); // hides the point orb
+        HidePointOrb(); // hides the point orb
+    }
+
+    private void HidePointOrb()
+    {
+        pointDot.SetActive(false);
     }
 }

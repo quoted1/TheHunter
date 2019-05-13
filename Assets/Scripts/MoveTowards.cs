@@ -14,7 +14,7 @@ public class MoveTowards : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         moving = false;
-        movementSpeed = 0.01f;
+        movementSpeed = 0.05f;
 	}
 	
 	void Update () {
