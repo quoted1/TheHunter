@@ -20,7 +20,7 @@ public class MoveTowards : MonoBehaviour {
 	void Update () {
         if (moving == true)
         {
-            this.gameObject.transform.position = Vector3.MoveTowards(transform.position, targetObj.position, movementSpeed);
+            this.transform.parent.transform.position = Vector3.MoveTowards(this.transform.parent.transform.position, targetObj.position, movementSpeed);
         }
 
         float thisX = this.gameObject.transform.position.x;
@@ -29,7 +29,7 @@ public class MoveTowards : MonoBehaviour {
         float targetX = targetObj.transform.position.x;
         float targetY = targetObj.transform.position.y;
 
-        if (Mathf.Approximately(thisX, targetX) && Mathf.Approximately(thisY, targetY) && moving == true)
+        if (Vector3.Distance(this.transform.parent.transform.position, targetObj.position) < 2f)
         {
             //Debug.Log("reached target");
             moving = false;

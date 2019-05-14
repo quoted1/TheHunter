@@ -18,6 +18,7 @@ public class RayCastController : MonoBehaviour
     //texture for point location
     public GameObject pointDot;
     private GameObject pointDotObj;
+    private bool pointDotShown;
 
     private int lMask;
 
@@ -43,11 +44,14 @@ public class RayCastController : MonoBehaviour
         if (OVRInput.Get(OVRInput.Button.One)) //Starts raycasting functionality
         {
             buttonAHeld();
+            pointDotShown = true;
+
         }
 
         if (OVRInput.GetUp(OVRInput.Button.One))
         {
             buttonAUp();
+            pointDotShown = false;
         }
     }
 
@@ -56,44 +60,10 @@ public class RayCastController : MonoBehaviour
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, lMask);
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
 
-        if (OVRInput.Get(OVRInput.Button.One))
-        {
-            pointDot.SetActive(true); //shows the point orb
-            pointDot.transform.position = hit.point; //sets the position of the point orb
-        }
+        pointDot.SetActive(true); //shows the point orb
+        pointDot.transform.position = hit.point; //sets the position of the point orb
 
-        /*
-        //the following code for showing the waypoints will be deleted eventually 
-        foreach (GameObject MT in movementTargets) // this code is no longer needed due to not needing to hide the waypoints
-        {
-            mTDistance = Vector3.Distance(this.gameObject.transform.position, MT.transform.position);
-            if (mTDistance <= 20.0f && MT.GetComponent<CurrentMT>().currentMT == false)
-            {
-                MT.SetActive(true);
-            }
-            else
-            {
-                MT.SetActive(false);
-            }
-        }
-        */
-       
-
-        /*
-        //add in menu scene ui controls
-        if(hit.collider.gameObject.name == "PlayGameCube")
-        {
-            hit.collider.gameObject.GetComponentInParent<Text>().color = Color.green;
-        }
-        if (hit.collider.gameObject.name == "OverViewCube")
-        {
-            hit.collider.gameObject.GetComponentInParent<Text>().color = Color.green;
-        }
-        if (hit.collider.gameObject.name == "ExitGameCube")
-        {
-            hit.collider.gameObject.GetComponentInParent<Text>().color = Color.red;
-        }
-        */
+        
     }
 
     void buttonAUp()
@@ -109,16 +79,19 @@ public class RayCastController : MonoBehaviour
             foreach (GameObject MT in movementTargets)
             {
                 MT.GetComponent<CurrentMT>().currentMT = false;
+                MT.transform.gameObject.SetActive(true);
+
             }
             hit.transform.gameObject.GetComponent<CurrentMT>().currentMT = true;
-            //hit.transform.gameObject.SetActive(false);
+            hit.transform.gameObject.SetActive(false);
         }
 
-        HidePointOrb(); // hides the point orb
+        StartCoroutine(HidePointOrb()); // hides the point orb
     }
 
-    private void HidePointOrb()
+    private IEnumerator HidePointOrb()
     {
+        yield return new WaitWhile(() => pointDotShown);
         pointDot.SetActive(false);
     }
 }

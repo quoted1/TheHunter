@@ -6,7 +6,6 @@ public class TargetController : MonoBehaviour {
 
     #region
 
-    public GameObject[] CenterRing, MiddleRing, OuterRing;
     public int CenterScore, MiddleScore, OuterScore;
     public GameObject GameController;
     public int Score;
@@ -41,22 +40,33 @@ public class TargetController : MonoBehaviour {
         //Debug.Log("score up 5");
         StartCoroutine(HideColObject(colObj));
     }
+    public void StartTimer()
+    {
+        GameController.GetComponent<ScoreController>().StartTimer();
+    }
+    public void ResetTimer()
+    {
+        GameController.GetComponent<ScoreController>().RestartTimer();
+    }
+
 
     private IEnumerator HideColObject(GameObject colObj)
     {
         //Debug.Log("hiding hit target");
 
-        colObj.GetComponent<Renderer>().enabled = false;
-        colObj.GetComponent<Collider>().enabled = false;
+        //colObj.GetComponent<Renderer>().enabled = false;
+        //colObj.GetComponent<Collider>().enabled = false;
+        colObj.SetActive(false);
 
         yield return new WaitForSeconds(5f);
         //Debug.Log("hiding hit target");
 
-        colObj.GetComponent<Renderer>().enabled = true;
-        colObj.GetComponent<Collider>().enabled = true;
+        colObj.SetActive(true);
+
     }
 
     
+
 
 
 

@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour {
 
-    #region
+    #region Variables
     public float DropArrow = 0.35f;
 
     private Rigidbody rb;
     public float arrowSpeed;
     public float arrowPower;
     private bool colliding;
-
     private GameObject collidedGameObject;
 
     public AudioSource arrowHit;
@@ -115,22 +114,42 @@ public class Arrow : MonoBehaviour {
 
     void ScoreInteractions()
     {   //the names of the collidedgameobject needs to be the same as the name of the object in scene
-        if (collidedGameObject.name == "Green")
+        string HitName = collidedGameObject.name;
+
+        switch (HitName)
         {
-            Debug.Log("Bulls-eye - 20 points");
-            GetComponentInParent<TargetController>().CenterRingHit(collidedGameObject);
-        }
-        if (collidedGameObject.name == "Yellow")
-        {
-            Debug.Log("Close - 10 Points");
-            GetComponentInParent<TargetController>().MiddleRingHit(collidedGameObject);
-        }
-        if (collidedGameObject.name == "Red")
-        {
-            Debug.Log("Get Good - 5 Points");
-            GetComponentInParent<TargetController>().OuterRingHit(collidedGameObject);
+            case "Red":
+                //some code
+                Debug.Log("Get Good - 5 Points");
+                GetComponentInParent<TargetController>().OuterRingHit(collidedGameObject);
+                break;
+            case "Yellow":
+                //some code
+                Debug.Log("Close - 10 Points");
+                GetComponentInParent<TargetController>().MiddleRingHit(collidedGameObject);
+                break;
+            case "Green":
+                //some code
+                Debug.Log("Bulls-eye - 20 points");
+                GetComponentInParent<TargetController>().CenterRingHit(collidedGameObject);
+                break;
+            case "Gametarget":
+                //some code
+                Debug.Log("Target hit");
+                GetComponentInParent<GameTargetController>().TargetHit(collidedGameObject);
+                break;
+            case "RestartTimerObj":
+                //some code
+                GetComponentInParent<TargetController>().ResetTimer();
+                break;
+            case "StartTimerObj":
+                //some code
+                GetComponentInParent<TargetController>().StartTimer();
+                break;
+            default:
+                //some code
+                Debug.Log("ScoreInteractions called for no reason");
+                break;
         }
     }
-
-
 }

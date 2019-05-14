@@ -9,11 +9,8 @@ public class SceneController : MonoBehaviour
 
     bool LoadingInitiated;
     //GameObject[] PauseMenuObjects;
-    public AudioSource Menuforward;
-    public AudioSource Menubackward;
-
-    public GameObject menu01;
-    public GameObject menu02;
+    public AudioSource Menuforward, Menubackward;
+    public GameObject menu01, menu02;
 
     void Awake()
     {
@@ -34,7 +31,7 @@ public class SceneController : MonoBehaviour
             LoadingInitiated = true;
         }
     }
-    IEnumerator PlayGame()
+    IEnumerator PlayGame() //possibly obselete
     {
         //Time.timeScale = 1;
         //Menuforward.Play();
