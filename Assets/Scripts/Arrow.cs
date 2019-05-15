@@ -92,23 +92,32 @@ public class Arrow : MonoBehaviour {
 
     void MenuInteractions()
     {
-        if (collidedGameObject.name == "PlayGameCube")
+        string HitName = collidedGameObject.name;
+
+        switch (HitName)
         {
-            //Debug.Log("game started");
-            GetComponentInParent<SceneController>().PlayGamePress();
-        }
-        if (collidedGameObject.name == "OverViewCube")
-        {
-            //Debug.Log("Overview hit");
-            GetComponentInParent<SceneController>().OverViewPress();
-        }
-        if (collidedGameObject.name == "ExitGameCube")
-        {
-            Application.Quit();
-        }
-        if (collidedGameObject.name == "BackCube")
-        {
-            GetComponentInParent<SceneController>().BackPress();
+            case "PlayGameCube":
+                //some code
+                //Debug.Log("game started");
+                GetComponentInParent<SceneController>().PlayGamePress();
+                break;
+            case "OverViewCube":
+                //some code
+                //Debug.Log("Overview hit");
+                GetComponentInParent<SceneController>().OverViewPress();
+                break;
+            case "ExitGameCube":
+                //some code
+                Application.Quit();
+                break;
+            case "BackCube":
+                //some code
+                GetComponentInParent<SceneController>().BackPress();
+                break;
+            default:
+                //some code
+                Debug.Log("Default menu interaction");
+                break;
         }
     }
 
@@ -140,11 +149,15 @@ public class Arrow : MonoBehaviour {
                 break;
             case "RestartTimerObj":
                 //some code
-                GetComponentInParent<TargetController>().ResetTimer();
+                GetComponentInParent<TargetController>().ResetTimer(collidedGameObject);
                 break;
             case "StartTimerObj":
                 //some code
-                GetComponentInParent<TargetController>().StartTimer();
+                GetComponentInParent<TargetController>().StartTimer(collidedGameObject);
+                break;
+            case "ReturnMenu":
+                //some code
+                GetComponentInParent<SceneControllerLink>().ReturnMenuLink();
                 break;
             default:
                 //some code

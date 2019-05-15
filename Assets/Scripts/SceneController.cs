@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class SceneController : MonoBehaviour
 {
 
-    bool LoadingInitiated;
+    bool LoadingInitiated, playGame;
     //GameObject[] PauseMenuObjects;
     public AudioSource Menuforward, Menubackward;
-    public GameObject menu01, menu02;
+    public GameObject menu01, menu02, enclosureObj, enclosureMoveToObj, enclosureReturnObj, moveObj, gameController;
 
     void Awake()
     {
@@ -22,22 +22,45 @@ public class SceneController : MonoBehaviour
         menu02.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (playGame == true && Vector3.Distance(enclosureObj.transform.position, moveObj.transform.position) > 0.1f)
+        {
+            enclosureObj.transform.position = Vector3.MoveTowards(enclosureObj.transform.position, enclosureMoveToObj.transform.position, 0.02f);
+        }
+        else if(playGame == false && Vector3.Distance(enclosureObj.transform.position, moveObj.transform.position) > 0.1f)
+        {
+            enclosureObj.transform.position = Vector3.MoveTowards(enclosureObj.transform.position, enclosureReturnObj.transform.position, 0.02f);
+        }
+    }
+
 
     public void PlayGamePress()
     {
         if (!LoadingInitiated)
         {
             StartCoroutine(PlayGame());
-            LoadingInitiated = true;
         }
     }
     IEnumerator PlayGame() //possibly obselete
     {
-        //Time.timeScale = 1;
-        //Menuforward.Play();
-        //yield return new WaitForSeconds(Menuforward.clip.length);
-        SceneManager.LoadScene(1);
-        //Debug.Log("Game started");
+        playGame = true;
+        moveObj = enclosureMoveToObj;
+        yield return false;
+    }
+
+    public void ReturnMenuPress()
+    {
+        if (!LoadingInitiated)
+        {
+            StartCoroutine(ReturnMenu());
+        }
+    }
+    public IEnumerator ReturnMenu() //possibly obselete
+    {
+        playGame = false;
+        moveObj = enclosureReturnObj;
+        StartCoroutine(gameController.GetComponent<ScoreController>().ResetPlayerPosition());
         yield return false;
     }
 

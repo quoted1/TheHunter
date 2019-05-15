@@ -12,7 +12,7 @@ public class ScoreController : MonoBehaviour {
     private float timer, seconds, minutes;
     public Text timerText;
     private string timerString;
-    public GameObject playerObj, resetPositionObj;
+    public GameObject playerObj, resetPositionObj, gameTargetController, resetTimerObj, hiddenTimerObj;
 
 
     private void Awake()
@@ -21,6 +21,7 @@ public class ScoreController : MonoBehaviour {
         timer = 0f;
         
         UpdateTimer();
+        resetTimerObj.SetActive(false);
     }
 
     public void Update()
@@ -46,8 +47,18 @@ public class ScoreController : MonoBehaviour {
         scoreText.text = "Score \n" + Score;
     }
 
-    public void StartTimer()
+    public void StartTimer(GameObject colObj)
     {
+        if(hiddenTimerObj == null)
+        {
+            resetTimerObj.SetActive(true);
+        }
+        else
+        {
+            hiddenTimerObj.SetActive(true);
+        }
+        hiddenTimerObj = colObj;
+        hiddenTimerObj.SetActive(false);
         timer = 0f;
         startTimer = true;
     }
@@ -57,10 +68,14 @@ public class ScoreController : MonoBehaviour {
         startTimer = false;
     }
 
-    public void RestartTimer()
+    public void RestartTimer(GameObject colObj)
     {
+        hiddenTimerObj.SetActive(true);
+        hiddenTimerObj = colObj;
+        hiddenTimerObj.SetActive(false);
         startTimer = false;
         timer = 0f;
+        gameTargetController.GetComponent<GameTargetController>().ResetGame();
     }
     public void EndGame()
     {
@@ -69,9 +84,9 @@ public class ScoreController : MonoBehaviour {
         StartCoroutine(ResetPlayerPosition());
     }
 
-    private IEnumerator ResetPlayerPosition()
+    public IEnumerator ResetPlayerPosition()
     {
         playerObj.transform.position = resetPositionObj.transform.position;
-        yield return new WaitForSeconds(1f);
+        yield return false;
     }
 }

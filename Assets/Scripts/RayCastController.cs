@@ -45,14 +45,21 @@ public class RayCastController : MonoBehaviour
         {
             buttonAHeld();
             pointDotShown = true;
+            StartCoroutine(HidePointOrb()); // hides the point orb
+
 
         }
-
-        if (OVRInput.GetUp(OVRInput.Button.One))
+        else
         {
-            buttonAUp();
             pointDotShown = false;
         }
+        /*
+        if (OVRInput.GetUp(OVRInput.Button.One))
+        {
+            //buttonAUp();
+            //pointDotShown = false;
+        }
+        */
     }
 
     void buttonAHeld()
@@ -74,24 +81,31 @@ public class RayCastController : MonoBehaviour
             //Debug.Log("Targetset");
 
             this.gameObject.GetComponentInParent<MoveTowards>().moving = true;
-
+            /* This script became obselete when the objects didnt need hiding
             //resettng the currentMT
             foreach (GameObject MT in movementTargets)
             {
-                MT.GetComponent<CurrentMT>().currentMT = false;
-                MT.transform.gameObject.SetActive(true);
-
+                if (MT != hit.transform.gameObject)
+                {
+                    Debug.Log("Mt shown");
+                    //MT.GetComponent<CurrentMT>().currentMT = false;
+                    MT.transform.gameObject.SetActive(true);
+                }
             }
-            hit.transform.gameObject.GetComponent<CurrentMT>().currentMT = true;
+            Debug.Log("Mt hidden");
+            //hit.transform.gameObject.GetComponent<CurrentMT>().currentMT = true;
             hit.transform.gameObject.SetActive(false);
+            */
         }
 
-        StartCoroutine(HidePointOrb()); // hides the point orb
     }
 
-    private IEnumerator HidePointOrb()
+    private IEnumerator HidePointOrb() //due to the way the update function works this just flickers and constantly runs when called from when the button is held
     {
-        yield return new WaitWhile(() => pointDotShown);
+        yield return new WaitWhile(() => pointDotShown == true); // testing as to whether it works best with 'Waituntil' or 'waitwhile'
+        Debug.Log(" dot hidden ");
         pointDot.SetActive(false);
+        buttonAUp();
+
     }
 }

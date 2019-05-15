@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -806,7 +806,7 @@ Transform:
   m_GameObject: {fileID: 297604066546791993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5652, z: 2.327}
-  m_LocalScale: {x: 1.942131, y: 1.838, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 297604066155305889}
   m_Father: {fileID: 0}
@@ -886,6 +886,9 @@ MonoBehaviour:
   Menubackward: {fileID: 0}
   menu01: {fileID: 297604066677974354}
   menu02: {fileID: 297604065273185582}
+  enclosureObj: {fileID: 0}
+  enclosureMoveToObj: {fileID: 0}
+  enclosureReturnObj: {fileID: 0}
 --- !u!1 &297604066677974354
 GameObject:
   m_ObjectHideFlags: 0

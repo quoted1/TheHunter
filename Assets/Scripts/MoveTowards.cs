@@ -20,7 +20,7 @@ public class MoveTowards : MonoBehaviour {
 	void Update () {
         if (moving == true)
         {
-            this.transform.parent.transform.position = Vector3.MoveTowards(this.transform.parent.transform.position, targetObj.position, movementSpeed);
+            this.transform.parent.transform.position = Vector3.MoveTowards(this.transform.parent.transform.position, targetObj.transform.parent.transform.position, movementSpeed);
         }
 
         float thisX = this.gameObject.transform.position.x;

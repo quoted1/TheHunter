@@ -40,13 +40,13 @@ public class TargetController : MonoBehaviour {
         //Debug.Log("score up 5");
         StartCoroutine(HideColObject(colObj));
     }
-    public void StartTimer()
+    public void StartTimer(GameObject colObj)
     {
-        GameController.GetComponent<ScoreController>().StartTimer();
+        GameController.GetComponent<ScoreController>().StartTimer(colObj);
     }
-    public void ResetTimer()
+    public void ResetTimer(GameObject colObj)
     {
-        GameController.GetComponent<ScoreController>().RestartTimer();
+        GameController.GetComponent<ScoreController>().RestartTimer(colObj);
     }
 
 
