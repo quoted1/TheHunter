@@ -7,8 +7,8 @@ public class GameTargetController : MonoBehaviour
 
     public GameObject gameControllerObj;
     public List<GameObject> targetObjects;
-    public int totalTargets = 8;
-    public int currentHitTargets = 7;
+    private int totalTargets = 7;
+    private int currentHitTargets = 0;
 
     private void Start()
     {

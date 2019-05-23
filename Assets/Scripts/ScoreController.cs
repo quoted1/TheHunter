@@ -12,7 +12,7 @@ public class ScoreController : MonoBehaviour {
     private float timer, seconds, minutes;
     public Text timerText;
     private string timerString;
-    public GameObject playerObj, resetPositionObj, gameTargetController, resetTimerObj, hiddenTimerObj;
+    public GameObject playerObj, resetPositionObj, gameTargetController, resetTimerObj, startimerObj;
 
 
     private void Awake()
@@ -47,18 +47,11 @@ public class ScoreController : MonoBehaviour {
         scoreText.text = "Score \n" + Score;
     }
 
-    public void StartTimer(GameObject colObj)
+    public void StartTimer()
     {
-        if(hiddenTimerObj == null)
-        {
-            resetTimerObj.SetActive(true);
-        }
-        else
-        {
-            hiddenTimerObj.SetActive(true);
-        }
-        hiddenTimerObj = colObj;
-        hiddenTimerObj.SetActive(false);
+
+        resetTimerObj.SetActive(true);
+        startimerObj.SetActive(false);
         timer = 0f;
         startTimer = true;
     }
@@ -68,11 +61,10 @@ public class ScoreController : MonoBehaviour {
         startTimer = false;
     }
 
-    public void RestartTimer(GameObject colObj)
+    public void RestartTimer()
     {
-        hiddenTimerObj.SetActive(true);
-        hiddenTimerObj = colObj;
-        hiddenTimerObj.SetActive(false);
+        resetTimerObj.SetActive(false);
+        startimerObj.SetActive(true);
         startTimer = false;
         timer = 0f;
         gameTargetController.GetComponent<GameTargetController>().ResetGame();

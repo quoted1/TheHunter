@@ -23,11 +23,13 @@ public class MoveTowards : MonoBehaviour {
             this.transform.parent.transform.position = Vector3.MoveTowards(this.transform.parent.transform.position, targetObj.transform.parent.transform.position, movementSpeed);
         }
 
+        /*
         float thisX = this.gameObject.transform.position.x;
         float thisY = this.gameObject.transform.position.y;
 
         float targetX = targetObj.transform.position.x;
         float targetY = targetObj.transform.position.y;
+        */
 
         if (Vector3.Distance(this.transform.parent.transform.position, targetObj.position) < 2f)
         {

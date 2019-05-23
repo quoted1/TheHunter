@@ -57,7 +57,12 @@ public class Arrow : MonoBehaviour {
     void OnCollisionEnter(Collision colObj)
     {
         colliding = true;
-        arrowHit.Play();
+
+        if (this.name == "Arrow")
+        {
+            arrowHit.Play();
+        }
+
         collidedGameObject = colObj.gameObject;
         if (arrowPower >= 15 && this.gameObject.name != "nockedArrow")
         {
@@ -96,23 +101,23 @@ public class Arrow : MonoBehaviour {
 
         switch (HitName)
         {
-            case "PlayGameCube":
+            case "HideMenu":
                 //some code
                 //Debug.Log("game started");
-                GetComponentInParent<SceneController>().PlayGamePress();
+                GetComponentInParent<SceneController>().HideMenuPress();
                 break;
-            case "OverViewCube":
+            case "OverControl":
                 //some code
                 //Debug.Log("Overview hit");
-                GetComponentInParent<SceneController>().OverViewPress();
+                GetComponentInParent<SceneController>().OverControlPress();
                 break;
-            case "ExitGameCube":
+            case "ExitGame":
                 //some code
                 Application.Quit();
                 break;
-            case "BackCube":
+            case "ShowMenu":
                 //some code
-                GetComponentInParent<SceneController>().BackPress();
+                GetComponentInParent<SceneController>().ReturnMenuPress();
                 break;
             default:
                 //some code
@@ -142,18 +147,18 @@ public class Arrow : MonoBehaviour {
                 Debug.Log("Bulls-eye - 20 points");
                 GetComponentInParent<TargetController>().CenterRingHit(collidedGameObject);
                 break;
-            case "Gametarget":
+            case "GameTarget":
                 //some code
                 Debug.Log("Target hit");
                 GetComponentInParent<GameTargetController>().TargetHit(collidedGameObject);
                 break;
-            case "RestartTimerObj":
+            case "ResetTimer":
                 //some code
-                GetComponentInParent<TargetController>().ResetTimer(collidedGameObject);
+                GetComponentInParent<TargetController>().ResetTimer();
                 break;
-            case "StartTimerObj":
+            case "StartTimer":
                 //some code
-                GetComponentInParent<TargetController>().StartTimer(collidedGameObject);
+                GetComponentInParent<TargetController>().StartTimer();
                 break;
             case "ReturnMenu":
                 //some code

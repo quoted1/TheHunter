@@ -7,104 +7,72 @@ using UnityEngine.UI;
 public class SceneController : MonoBehaviour
 {
 
-    bool LoadingInitiated, playGame;
-    //GameObject[] PauseMenuObjects;
-    public AudioSource Menuforward, Menubackward;
-    public GameObject menu01, menu02, enclosureObj, enclosureMoveToObj, enclosureReturnObj, moveObj, gameController;
-
-    void Awake()
-    {
-        LoadingInitiated = false;
-    }
+    public bool LoadingInitiated, playGame, OverView;
+    public GameObject gameController, Menu01, showMenuShield;
+    public Text descriptionTxt, overControlTxt;
 
     private void Start()
     {
-        menu02.SetActive(false);
+        OverView = true;
+        showMenuShield.SetActive(false);
     }
 
-    private void Update()
-    {
-        if (playGame == true && Vector3.Distance(enclosureObj.transform.position, moveObj.transform.position) > 0.1f)
-        {
-            enclosureObj.transform.position = Vector3.MoveTowards(enclosureObj.transform.position, enclosureMoveToObj.transform.position, 0.02f);
-        }
-        else if(playGame == false && Vector3.Distance(enclosureObj.transform.position, moveObj.transform.position) > 0.1f)
-        {
-            enclosureObj.transform.position = Vector3.MoveTowards(enclosureObj.transform.position, enclosureReturnObj.transform.position, 0.02f);
-        }
-    }
-
-
-    public void PlayGamePress()
+    public void HideMenuPress()
     {
         if (!LoadingInitiated)
         {
-            StartCoroutine(PlayGame());
+            StartCoroutine(HideMenu());
         }
     }
-    IEnumerator PlayGame() //possibly obselete
+    IEnumerator HideMenu() //possibly obselete
     {
-        playGame = true;
-        moveObj = enclosureMoveToObj;
+        Menu01.SetActive(false);
+        showMenuShield.SetActive(true);
         yield return false;
     }
 
     public void ReturnMenuPress()
     {
-        if (!LoadingInitiated)
-        {
-            StartCoroutine(ReturnMenu());
-        }
+        StartCoroutine(ReturnMenu());
     }
     public IEnumerator ReturnMenu() //possibly obselete
     {
-        playGame = false;
-        moveObj = enclosureReturnObj;
+        Menu01.SetActive(true);
+        showMenuShield.SetActive(false);
         StartCoroutine(gameController.GetComponent<ScoreController>().ResetPlayerPosition());
         yield return false;
     }
 
-    public void OverViewPress()
+    public void OverControlPress()
     {
-        if (!LoadingInitiated)
+        if (OverView == true)
         {
-            StartCoroutine(OverView());
+            StartCoroutine(ShowControls());
+            OverView = false;
+        }
+        else
+        {
+            StartCoroutine(ShowOverView());
+            OverView = true;
         }
     }
-    IEnumerator OverView()
+    IEnumerator ShowControls()
     {
-        //Time.timeScale = 1;
-        //Menuforward.Play();
-        //yield return new WaitForSeconds(Menuforward.clip.length);
-        menu01.SetActive(false);
-        menu02.SetActive(true);
-        //Debug.Log("overview");
+        overControlTxt.text = "OverView";
+        descriptionTxt.text = "Controls - Right Touch Controller\n\n" +
+                                "A - Movement Orb\n" +
+                                "(You can move to any Totem Pole)\n\n" +
+                                "Front Trigger Held - Spawn / Hold Arrow\n" +
+                                "(Interacts like a Bow and Arrow)\n\n" +
+                                "Use the bow to interact with Objects in the world and the movement orb to move to around";
         yield return false;
 
     }
-
-    public void BackPress()
+    IEnumerator ShowOverView()
     {
-        Debug.Log("log");
-        if (!LoadingInitiated)
-        {
-            //Debug.Log("log2");
-
-            StartCoroutine(Back());
-        }
-    }
-    IEnumerator Back()
-    {
-        //Menuforward.Play();
-        //yield return new WaitForSeconds(Menuforward.clip.length);
-        menu01.SetActive(true);
-        menu02.SetActive(false);
-        //Debug.Log("mainmenu");
-        yield return false;
-    }
-
-    public void CloseGamePress()
-    {
-        Application.Quit();
+        overControlTxt.text = "Controls";
+        descriptionTxt.text = "See how fast you can shoot all the targets\n\n" +
+                                "Enter the course behind you and start the timer";
+                yield return false;
     }
    }
